@@ -1,103 +1,74 @@
-import Image from "next/image";
+'use client';
+
+import { HeaderStruct } from "@/modules/layout/header/header-structure";
+import { Footer } from "@/modules/layout/footer/footer";
+import AutoSlider from "@/ui/slider";
+import { IntroSection } from "@/modules/layout/main-page/main-blog-description/components/section";
+import { Heading } from "@/ui/heading";
+import { Description } from "@/ui/description";
+import { Button } from "@/ui/button";
+import Link from "next/link";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { mockDataIntroSection } from "@/mock/mock-intro-section";
+import { useMainPageStore } from "@/store/main-page-store";
+import { Fragment } from "react";
+import { BuyBookModal } from "@/modal/buy-book-modal";
+
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const mockIndex = useMainPageStore((state) => state.mockMainPageDataIndex);
+  const increaseMainPageDataIndex = useMainPageStore((state) => state.increaseMainPageDataIndex);
+  const decreaseMainPageDataIndex = useMainPageStore((state) => state.decreaseMainPageDataIndex);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+  return (
+    <>
+      <HeaderStruct />
+      <BuyBookModal/>
+      <div className="relative h-[100vh] bg-transparent">
+        <AutoSlider />
+      </div>
+
+      <IntroSection className="py-[20px]">
+        {mockDataIntroSection
+          .filter((_, i) => i === mockIndex)
+          .map((section) => (
+            <Fragment key={section.link}>
+              <Heading className="text-white text-[40px]">
+                {section.heading}
+              </Heading>
+              <Description className="w-[30%] text-center">
+                  {section.description}
+              </Description>
+              <div className="flex w-full justify-between items-center px-[10%] py-6 gap-6">
+                <Button
+                  onClick={decreaseMainPageDataIndex}
+                  className="flex items-center gap-3 px-7 py-3.5 rounded-xl bg-gradient-to-r from-blue-900 to-blue-950 text-white text-lg font-medium hover:from-blue-950 hover:to-blue-900 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-[1.02]"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                  Prev
+                </Button>
+
+                <Button
+                  className="flex items-center justify-center px-9 py-3.5 rounded-xl bg-gradient-to-r from-blue-900 to-blue-950 text-white text-lg font-medium hover:from-blue-950 hover:to-blue-900 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-[1.02]"
+                >
+                  <Link href={section.link} className="text-white no-underline hover:text-blue-100 transition-colors">
+                    {section.heading}
+                  </Link>
+                </Button>
+
+                <Button
+                  onClick={increaseMainPageDataIndex}
+                  className="flex items-center gap-3 px-7 py-3.5 rounded-xl bg-gradient-to-r from-blue-900 to-blue-950 text-white text-lg font-medium hover:from-blue-950 hover:to-blue-900 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-[1.02]"
+                >
+                  Next
+                  <ChevronRight className="w-5 h-5" />
+                </Button>
+              </div>
+            </Fragment>
+          ))}
+      </IntroSection>
+      
+      <Footer />
+    </>
   );
 }

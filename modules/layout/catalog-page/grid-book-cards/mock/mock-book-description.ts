@@ -1,0 +1,1 @@
+export const bookDescription = ["Book-Name","Author","Raiting","Price","Add to basket"];

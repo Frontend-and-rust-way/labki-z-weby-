@@ -1,0 +1,220 @@
+// app/my-account/page.tsx (або інший шлях у Next.js)
+"use client";
+import { useBasketStore2 } from "../../catalog-page/basket/store/store/use-basket-store-2";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { useEffect } from "react";
+
+import {
+  FiUser,
+  FiLock,
+  FiShoppingBag,
+  FiHeart,
+  FiSettings,
+  FiHelpCircle,
+  FiEdit2,
+  FiLogOut,
+  FiTrash2,
+  FiChevronRight,
+} from "react-icons/fi";
+
+interface Section {
+  id: string;
+  title: string;
+  icon: React.ReactNode;
+  content: React.ReactNode;
+}
+
+export default function MyAccount() {
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+  const orderingData = useBasketStore2(state => state.ordering);
+  const getOrderingFromLocalStorage = useBasketStore2(state => state.getOrderingFromLocalStorage);
+  
+
+  useEffect(() => {
+    getOrderingFromLocalStorage();
+  },[getOrderingFromLocalStorage]) 
+
+
+  const sections: Section[] = [
+    {
+      id: "personal",
+      title: "Особисті дані",
+      icon: <FiUser className="w-6 h-6" />,
+      content: (
+        <div className="space-y-4">
+          <div className="flex items-center space-x-4">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-2xl font-bold">
+              II
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold">Іван Іванов</h3>
+              <p className="text-gray-black">ivan@example.com</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="p-4 bg-gray-50 rounded-lg">
+              <p className="text-sm text-black">Телефон</p>
+              <p className="font-medium">+380991234567</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded-lg">
+              <p className="text-sm text-black">Адреса</p>
+              <p className="font-medium">м. Київ, вул. Прикладна, 1</p>
+            </div>
+          </div>
+          <button className="w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center space-x-2">
+            <FiEdit2 />
+            <span>Редагувати</span>
+          </button>
+        </div>
+      ),
+    },
+    {
+      id: "security",
+      title: "Безпека",
+      icon: <FiLock className="w-6 h-6" />,
+      content: (
+        <div className="space-y-4">
+          <button className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-between">
+            <span>Змінити пароль</span>
+            <FiChevronRight />
+          </button>
+          <button className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-between">
+            <span>Вийти з усіх сесій</span>
+            <FiLogOut />
+          </button>
+        </div>
+      ),
+    },
+    {
+      id: "orders",
+      title: "Історія замовлень",
+      icon: <FiShoppingBag className="w-6 h-6" />,
+      content: (
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b">
+                <th className="py-3 px-4 text-left text-black">№</th>
+                <th className="py-3 px-4 text-left text-black">Дата</th>
+                <th className="py-3 px-4 text-left text-black">Статус</th>
+                <th className="py-3 px-4 text-left text-black">Сума</th>
+                <th className="py-3 px-4 text-left text-black"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {orderingData.map((ordering, index) => ( 
+              <tr key={`${ordering}-${index}`}  className="border-b hover:bg-gray-50 text-black transition-colors">
+                <td className="py-3 px-4">{index + 1}</td>
+                <td className="py-3 px-4">2025-05-01</td>
+                <td className="py-3 px-4">
+                  <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                    Доставлено
+                  </span>
+                </td>
+                <td className="py-3 px-4 font-medium">{ordering}</td>
+              </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ),
+    },
+    {
+      id: "favorites",
+      title: "Улюблені товари",
+      icon: <FiHeart className="w-6 h-6" />,
+      content: (
+        <div className="text-center py-8">
+          <FiHeart className="w-12 h-12 mx-auto text-black mb-4" />
+          <p className="text-black">Ще не додано жодного товару.</p>
+        </div>
+      ),
+    },
+    {
+      id: "settings",
+      title: "Налаштування",
+      icon: <FiSettings className="w-6 h-6" />,
+      content: (
+        <div className="space-y-4">
+          <div className="p-4 bg-gray-50 rounded-lg">
+            <label className="block text-sm text-black mb-2">Мова</label>
+            <select className="w-full p-2 border rounded-lg bg-white">
+              <option>Українська</option>
+              <option>English</option>
+            </select>
+          </div>
+          <button className="w-full px-4 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors flex items-center justify-center space-x-2">
+            <FiTrash2 />
+            <span>Видалити акаунт</span>
+          </button>
+        </div>
+      ),
+    },
+    {
+      id: "support",
+      title: "Підтримка",
+      icon: <FiHelpCircle className="w-6 h-6" />,
+      content: (
+        <div className="space-y-4">
+          <button className="w-full px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:opacity-90 transition-opacity">
+            Зв язатися з підтримкою
+          </button>
+        </div>
+      ),
+    },
+  ];
+
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gray-50 py-8">
+      <div className="max-w-4xl mx-auto px-4">
+        <motion.h1
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-3xl font-bold text-black mb-8"
+        >
+          Мій акаунт
+        </motion.h1>
+
+        <div className="grid gap-6">
+          {sections.map((section) => (
+            <motion.section
+              key={section.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-white rounded-xl shadow-sm overflow-hidden"
+            >
+              <button
+                onClick={() =>
+                  setActiveSection(activeSection === section.id ? null : section.id)
+                }
+                className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+              >
+                <div className="flex items-center space-x-4">
+                  <div className="text-blue-500">{section.icon}</div>
+                  <h2 className="text-xl font-semibold text-black">{section.title}</h2>
+                </div>
+                <FiChevronRight
+                  className={`w-5 h-5 text-black transition-transform ${
+                    activeSection === section.id ? "rotate-90" : ""
+                  }`}
+                />
+              </button>
+
+              {activeSection === section.id && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  className="px-6 py-4 border-t"
+                >
+                  {section.content}
+                </motion.div>
+              )}
+            </motion.section>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
