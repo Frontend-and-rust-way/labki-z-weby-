@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { FiUser, FiLock, FiShoppingBag, FiHeart, FiSettings, FiHelpCircle, FiEdit2, FiLogOut, FiTrash2, FiChevronRight } from "react-icons/fi";
+import { FiUser, FiLock, FiShoppingBag,  FiSettings, FiEdit2, FiLogOut, FiTrash2, FiChevronRight } from "react-icons/fi";
 
 export default function MyAccount() {
   const [activeSection, setActiveSection] = useState<string | null>(null);
@@ -91,17 +91,6 @@ export default function MyAccount() {
       ),
     },
     {
-      id: "favorites",
-      title: "Улюблені товари",
-      icon: <FiHeart className="w-6 h-6" />,
-      content: (
-        <div className="text-center py-8">
-          <FiHeart className="w-12 h-12 mx-auto text-gray-400 mb-4" />
-          <p className="text-gray-500">Ще не додано жодного товару.</p>
-        </div>
-      ),
-    },
-    {
       id: "settings",
       title: "Налаштування",
       icon: <FiSettings className="w-6 h-6" />,
@@ -117,18 +106,6 @@ export default function MyAccount() {
           <button className="w-full px-4 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors flex items-center justify-center space-x-2">
             <FiTrash2 />
             <span>Видалити акаунт</span>
-          </button>
-        </div>
-      ),
-    },
-    {
-      id: "support",
-      title: "Підтримка",
-      icon: <FiHelpCircle className="w-6 h-6" />,
-      content: (
-        <div className="space-y-4">
-          <button className="w-full px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:opacity-90 transition-opacity">
-            Зв &apos;язатися з підтримкою
           </button>
         </div>
       ),

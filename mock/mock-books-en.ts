@@ -1,4 +1,4 @@
-export const books = [
+export const booksEn = [
     {
       title: "The Great Gatsby",
       author: "F. Scott Fitzgerald",

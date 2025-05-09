@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import { books } from "@/mock/mock-books";
+import { booksEn } from "@/mock/mock-books-en";
+import { booksUk } from "@/mock/mock-books-uk";
 import { immer } from "zustand/middleware/immer";
 import _ from "lodash";
 
@@ -10,8 +11,8 @@ export interface IUseBasketStore {
   chosenGenre: string;
   totalSummary: number;
   isBasketModalActive: boolean;
-  mockBooks: typeof books;
-  addedBooks: typeof books;
+  mockBooks: typeof booksEn | typeof booksUk;
+  addedBooks: typeof booksEn | typeof booksUk;
   openOrderModal: () => void;
   closeOrderModal: () => void;
   openBasketModal: () => void;
@@ -35,7 +36,7 @@ export const useBasketStore2 = create<IUseBasketStore>()(
     isBasketModalActive: false,
     chosenAuthor: "",
     chosenGenre: "",
-    mockBooks: _.shuffle(books),
+    mockBooks: _.shuffle(booksEn),
     addedBooks: [],
     totalSummary: 0,
 
@@ -118,3 +119,4 @@ export const useBasketStore2 = create<IUseBasketStore>()(
     },
   }))
 );
+

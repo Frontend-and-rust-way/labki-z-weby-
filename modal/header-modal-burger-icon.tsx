@@ -1,13 +1,13 @@
-import { headerModalData } from "@/constant/constant-header-modal-"
+import { headerModalDataEn } from "@/constant/constant-header-modal-"
 import { createPortal } from "react-dom"
 import { useToggleStore } from "@/modules/layout/header/store/use-toggle-store"
 import { X } from "lucide-react" // Не забудь встановити "lucide-react"
 import { Button } from "@/ui/button"
 import Link from "next/link"
 export function HeaderModal() {
-  const closeModal = useToggleStore((state) => state.closeModal)
-  const isModalActive = useToggleStore((state) => state.modal)
-
+  const closeModal = useToggleStore( (state) => state.closeModal)
+  const isModalActive = useToggleStore( (state) => state.modal)
+  
   if (!isModalActive) return null
 
   return createPortal(
@@ -23,7 +23,7 @@ export function HeaderModal() {
 
 
       <div className="flex flex-col items-center gap-6">
-        {headerModalData.map((value) => (
+        {headerModalDataEn.map((value) => (
           <Link 
             href={value.link}
             key={value.link}

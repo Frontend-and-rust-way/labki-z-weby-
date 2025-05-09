@@ -1,5 +1,5 @@
 'use client';
-
+import { useTranslation } from "react-i18next";
 import { HeaderStruct } from "@/modules/layout/header/header-structure";
 import { Footer } from "@/modules/layout/footer/footer";
 import AutoSlider from "@/ui/slider";
@@ -9,16 +9,18 @@ import { Description } from "@/ui/description";
 import { Button } from "@/ui/button";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { mockDataIntroSection } from "@/mock/mock-intro-section";
+import { mockDataIntroSectionEn } from "@/mock/mock-intro-section-en";
+import { mockDataIntroSectionUk } from "@/mock/mock-into-section-uk";
 import { useMainPageStore } from "@/store/main-page-store";
 import { Fragment } from "react";
 import { BuyBookModal } from "@/modal/buy-book-modal";
-
 
 export default function Home() {
   const mockIndex = useMainPageStore((state) => state.mockMainPageDataIndex);
   const increaseMainPageDataIndex = useMainPageStore((state) => state.increaseMainPageDataIndex);
   const decreaseMainPageDataIndex = useMainPageStore((state) => state.decreaseMainPageDataIndex);
+  const { t } = useTranslation();
+  const books = t("mainPage.dataIntroSection", { returnObjects: true }) as typeof mockDataIntroSectionEn | typeof mockDataIntroSectionUk;
 
   return (
     <>
@@ -29,7 +31,7 @@ export default function Home() {
       </div>
 
       <IntroSection className="py-[20px]">
-        {mockDataIntroSection
+        {books
           .filter((_, i) => i === mockIndex)
           .map((section) => (
             <Fragment key={section.link}>
@@ -45,7 +47,7 @@ export default function Home() {
                   className="flex items-center gap-3 px-7 py-3.5 rounded-xl bg-gradient-to-r from-blue-900 to-blue-950 text-white text-lg font-medium hover:from-blue-950 hover:to-blue-900 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-[1.02]"
                 >
                   <ChevronLeft className="w-5 h-5" />
-                  Prev
+                  {t("mainPage.prevButton")}
                 </Button>
 
                 <Button
@@ -60,14 +62,13 @@ export default function Home() {
                   onClick={increaseMainPageDataIndex}
                   className="flex items-center gap-3 px-7 py-3.5 rounded-xl bg-gradient-to-r from-blue-900 to-blue-950 text-white text-lg font-medium hover:from-blue-950 hover:to-blue-900 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-[1.02]"
                 >
-                  Next
+                  {t("mainPage.nextButton")}
                   <ChevronRight className="w-5 h-5" />
                 </Button>
               </div>
             </Fragment>
           ))}
       </IntroSection>
-      
       <Footer />
     </>
   );

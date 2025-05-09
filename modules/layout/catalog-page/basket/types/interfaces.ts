@@ -6,7 +6,7 @@ export interface IBook {
   imageUrl: string;  
 }
 
-import { books } from "@/mock/mock-books";
+import { books } from "@/mock/mock-books-en/";
 
 export interface IUseBasketStore {
   // Кількість усіх книг (наприклад, для індикатора загального розміру кошика)

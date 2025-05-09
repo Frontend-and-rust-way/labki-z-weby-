@@ -1,0 +1,302 @@
+export const booksUk = [
+  {
+    title: "Великий Гетсбі",
+    author: "Ф. Скотт Фіцджеральд",
+    price: 19,
+    rating: 4.5,
+    imageUrl: "/1_C_De138ur_97HVfp34DGuQ.png",
+    countPurchase: 1,
+    type: "твердий обкладинка",
+    isExists: {
+      status: "в наявності",
+      expectedDate: null,
+    },
+    code: 1001,
+    genre: "Класика"
+  },
+  {
+    title: "1984",
+    author: "Джордж Орвелл",
+    price: 15,
+    rating: 4.8,
+    imageUrl: "/281023-10-most-read-books-Feature.webp",
+    countPurchase: 1,
+    type: "м'яка обкладинка",
+    isExists: {
+      status: "немає в наявності",
+      expectedDate: "2025-05-15",
+    },
+    code: 1002,
+    genre: "Дистопія"
+  },
+  {
+    title: "Убити пересмішника",
+    author: "Харпер Лі",
+    price: 18,
+    rating: 4.7,
+    imageUrl: "/612KmKeEYEL._AC_UF1000,1000_QL80_.jpg",
+    countPurchase: 1,
+    type: "твердий обкладинка",
+    isExists: {
+      status: "в наявності",
+      expectedDate: null,
+    },
+    code: 1003,
+    genre: "Класика"
+  },
+  {
+    title: "Мобі Дік",
+    author: "Герман Мелвілл",
+    price: 22,
+    rating: 4.2,
+    imageUrl: "/7180qjGSgDL.jpg",
+    countPurchase: 1,
+    type: "м'яка обкладинка",
+    isExists: {
+      status: "немає в наявності",
+      expectedDate: "2025-06-01",
+    },
+    code: 1004,
+    genre: "Пригоди"
+  },
+  {
+    title: "Гордість і упередження",
+    author: "Джейн Остін",
+    price: 16,
+    rating: 4.6,
+    imageUrl: "/9781784752637.jpg",
+    countPurchase: 1,
+    type: "твердий обкладинка",
+    isExists: {
+      status: "в наявності",
+      expectedDate: null,
+    },
+    code: 1005,
+    genre: "Романтика"
+  },
+  {
+    title: "Ловець у житі",
+    author: "Дж. Д. Селінджер",
+    price: 17,
+    rating: 4.3,
+    imageUrl: "/91teiIZ5vwL._AC_UF894,1000_QL80_.jpg",
+    countPurchase: 1,
+    type: "м'яка обкладинка",
+    isExists: {
+      status: "немає в наявності",
+      expectedDate: "2025-05-25",
+    },
+    code: 1006,
+    genre: "Розвиток особистості"
+  },
+  {
+    title: "Хобіт",
+    author: "Дж. Р. Р. Толкін",
+    price: 20,
+    rating: 4.9,
+    imageUrl: "/old-book-flying-letters-magic-light-background-bookshelf-library-ancient-books-as-symbol-knowledge-history-218640948.webp",
+    countPurchase: 1,
+    type: "твердий обкладинка",
+    isExists: {
+      status: "в наявності",
+      expectedDate: null,
+    },
+    code: 1007,
+    genre: "Фентезі"
+  },
+  {
+    title: "Війна і мир",
+    author: "Лев Толстой",
+    price: 25,
+    rating: 4.4,
+    imageUrl: "/old_book_look_up_1570x.webp",
+    countPurchase: 1,
+    type: "м'яка обкладинка",
+    isExists: {
+      status: "в наявності",
+      expectedDate: null,
+    },
+    code: 1008,
+    genre: "Історія"
+  },
+  {
+    title: "О дивний новий світ",
+    author: "Олдос Хакслі",
+    price: 14,
+    rating: 4.6,
+    imageUrl: "/moby-dick-or-the-whale-original-imafwsh4gt7ffufp.webp",
+    countPurchase: 1,
+    type: "твердий обкладинка",
+    isExists: {
+      status: "немає в наявності",
+      expectedDate: "2025-05-18",
+    },
+    code: 1009,
+    genre: "Дистопія"
+  },
+  {
+    title: "Анна Кареніна",
+    author: "Лев Толстой",
+    price: 24,
+    rating: 4.6,
+    imageUrl: "/moby-dick-or-the-whale-original-imafwsh4gt7ffufp.webp",
+    countPurchase: 1,
+    type: "м'яка обкладинка",
+    isExists: {
+      status: "в наявності",
+      expectedDate: null,
+    },
+    code: 1010,
+    genre: "Драма"
+  },
+  {
+    title: "Брати Карамазови",
+    author: "Федір Достоєвський",
+    price: 23,
+    rating: 4.7,
+    imageUrl: "/moby-dick-or-the-whale-original-imafwsh4gt7ffufp.webp",
+    countPurchase: 1,
+    type: "твердий обкладинка",
+    isExists: {
+      status: "в наявності",
+      expectedDate: null,
+    },
+    code: 1011,
+    genre: "Філософія"
+  },
+  {
+    title: "Джейн Ейр",
+    author: "Шарлотта Бронте",
+    price: 19,
+    rating: 4.5,
+    imageUrl: "/moby-dick-or-the-whale-original-imafwsh4gt7ffufp.webppg",
+    countPurchase: 1,
+    type: "м'яка обкладинка",
+    isExists: {
+      status: "немає в наявності",
+      expectedDate: "2025-05-20",
+    },
+    code: 1012,
+    genre: "Романтика"
+  },
+  {
+    title: "Грозовий перевал",
+    author: "Емілі Бронте",
+    price: 18,
+    rating: 4.4,
+    imageUrl: "/moby-dick-or-the-whale-original-imafwsh4gt7ffufp.webp",
+    countPurchase: 1,
+    type: "твердий обкладинка",
+    isExists: {
+      status: "в наявності",
+      expectedDate: null,
+    },
+    code: 1013,
+    genre: "Готика"
+  },
+  {
+    title: "Великі надії",
+    author: "Чарльз Діккенс",
+    price: 21,
+    rating: 4.6,
+    imageUrl: "/moby-dick-or-the-whale-original-imafwsh4gt7ffufp.webp",
+    countPurchase: 1,
+    type: "м'яка обкладинка",
+    isExists: {
+      status: "немає в наявності",
+      expectedDate: "2025-06-10",
+    },
+    code: 1014,
+    genre: "Класика"
+  },
+  {
+    title: "Давид Коперфільд",
+    author: "Чарльз Діккенс",
+    price: 22,
+    rating: 4.5,
+    imageUrl: "/moby-dick-or-the-whale-original-imafwsh4gt7ffufp.webp",
+    countPurchase: 1,
+    type: "твердий обкладинка",
+    isExists: {
+      status: "в наявності",
+      expectedDate: null,
+    },
+    code: 1015,
+    genre: "Білдунгсроман"
+  },
+  {
+    title: "Отелло",
+    author: "Віктор Гюго",
+    price: 25,
+    rating: 4.8,
+    imageUrl: "/moby-dick-or-the-whale-original-imafwsh4gt7ffufp.webp",
+    countPurchase: 1,
+    type: "м'яка обкладинка",
+    isExists: {
+      status: "в наявності",
+      expectedDate: null,
+    },
+    code: 1016,
+    genre: "Історія"
+  },
+  {
+    title: "Граф Монте-Крісто",
+    author: "Александр Дюма",
+    price: 24,
+    rating: 4.7,
+    imageUrl: "/moby-dick-or-the-whale-original-imafwsh4gt7ffufp.webp",
+    countPurchase: 1,
+    type: "твердий обкладинка",
+    isExists: {
+      status: "в наявності",
+      expectedDate: null,
+    },
+    code: 1017,
+    genre: "Пригоди"
+  },
+  {
+    title: "Дракула",
+    author: "Брем Стокер",
+    price: 17,
+    rating: 4.5,
+    imageUrl: "/moby-dick-or-the-whale-original-imafwsh4gt7ffufp.webp",
+    countPurchase: 1,
+    type: "м'яка обкладинка",
+    isExists: {
+      status: "немає в наявності",
+      expectedDate: "2025-06-15",
+    },
+    code: 1018,
+    genre: "Жахи"
+  },
+  {
+    title: "Франкенштейн",
+    author: "Мері Шеллі",
+    price: 18,
+    rating: 4.4,
+    imageUrl: "/moby-dick-or-the-whale-original-imafwsh4gt7ffufp.webp",
+    countPurchase: 1,
+    type: "твердий обкладинка",
+    isExists: {
+      status: "в наявності",
+      expectedDate: null,
+    },
+    code: 1019,
+    genre: "Наукова фантастика"
+  },
+  {
+    title: "Портрет Доріана Грея",
+    author: "Оскар Уайльд",
+    price: 19,
+    rating: 4.6,
+    imageUrl: "/moby-dick-or-the-whale-original-imafwsh4gt7ffufp.webp",
+    countPurchase: 1,
+    type: "м'яка обкладинка",
+    isExists: {
+      status: "в наявності",
+      expectedDate: null,
+    },
+    code: 1020,
+    genre: "Філософія"
+  }
+];

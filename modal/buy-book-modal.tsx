@@ -4,16 +4,17 @@ import { X } from "lucide-react";
 import { Button } from "@/ui/button";
 import { useBasketStore2 } from "@/modules/layout/catalog-page/basket/store/store/use-basket-store-2";
 
-
 export function BuyBookModal() {
   const orderModal = useBasketStore2((state) => state.orderModal);
   const totalSummary = useBasketStore2((state) => state.totalSummary);
   const closeOrderModal = useBasketStore2((state) => state.closeOrderModal);
   const addOrderIntoArray = useBasketStore2((state) => state.addOrderIntoArray);
   const orderings = useBasketStore2((state) => state.ordering);
+  const getOrderingFromLocalStorage = useBasketStore2(state=>state.getOrderingFromLocalStorage);
+  
   useEffect(() => { 
-    
-  })
+    getOrderingFromLocalStorage();
+  },[getOrderingFromLocalStorage]);
 
   if (!orderModal) return null;
 
@@ -25,7 +26,7 @@ export function BuyBookModal() {
           onClick={closeOrderModal}
           aria-label="Close modal"
         >
-          <X size={22} />
+          <X size={22}  />
         </button>
         <h2 className="text-2xl font-semibold text-gray-800 tracking-wide">Total Summary</h2>
         <span className="text-[24px] font-bold text-blue-700">

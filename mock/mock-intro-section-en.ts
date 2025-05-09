@@ -1,4 +1,4 @@
-export const mockDataIntroSection = [
+export const mockDataIntroSectionEn = [
   {
     link: "/",
     heading: "BookVerse",

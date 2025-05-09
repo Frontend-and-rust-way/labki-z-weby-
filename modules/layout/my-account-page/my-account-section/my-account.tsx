@@ -1,20 +1,17 @@
-// app/my-account/page.tsx (або інший шлях у Next.js)
 "use client";
 import { useBasketStore2 } from "../../catalog-page/basket/store/store/use-basket-store-2";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
+import emailjs from 'emailjs-com';
+import useAccountStore from "./store/use-account-store";
 
 import {
   FiUser,
-  FiLock,
   FiShoppingBag,
-  FiHeart,
   FiSettings,
   FiHelpCircle,
   FiEdit2,
-  FiLogOut,
-  FiTrash2,
   FiChevronRight,
 } from "react-icons/fi";
 
@@ -25,11 +22,15 @@ interface Section {
   content: React.ReactNode;
 }
 
+
 export default function MyAccount() {
+  const openSupportModal = useAccountStore(state => state.openSupportModal);
+
+  console.log(emailjs);
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const orderingData = useBasketStore2(state => state.ordering);
   const getOrderingFromLocalStorage = useBasketStore2(state => state.getOrderingFromLocalStorage);
-  
+
 
   useEffect(() => {
     getOrderingFromLocalStorage();
@@ -70,23 +71,6 @@ export default function MyAccount() {
       ),
     },
     {
-      id: "security",
-      title: "Безпека",
-      icon: <FiLock className="w-6 h-6" />,
-      content: (
-        <div className="space-y-4">
-          <button className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-between">
-            <span>Змінити пароль</span>
-            <FiChevronRight />
-          </button>
-          <button className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-between">
-            <span>Вийти з усіх сесій</span>
-            <FiLogOut />
-          </button>
-        </div>
-      ),
-    },
-    {
       id: "orders",
       title: "Історія замовлень",
       icon: <FiShoppingBag className="w-6 h-6" />,
@@ -121,17 +105,6 @@ export default function MyAccount() {
       ),
     },
     {
-      id: "favorites",
-      title: "Улюблені товари",
-      icon: <FiHeart className="w-6 h-6" />,
-      content: (
-        <div className="text-center py-8">
-          <FiHeart className="w-12 h-12 mx-auto text-black mb-4" />
-          <p className="text-black">Ще не додано жодного товару.</p>
-        </div>
-      ),
-    },
-    {
       id: "settings",
       title: "Налаштування",
       icon: <FiSettings className="w-6 h-6" />,
@@ -144,10 +117,6 @@ export default function MyAccount() {
               <option>English</option>
             </select>
           </div>
-          <button className="w-full px-4 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors flex items-center justify-center space-x-2">
-            <FiTrash2 />
-            <span>Видалити акаунт</span>
-          </button>
         </div>
       ),
     },
@@ -157,7 +126,10 @@ export default function MyAccount() {
       icon: <FiHelpCircle className="w-6 h-6" />,
       content: (
         <div className="space-y-4">
-          <button className="w-full px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:opacity-90 transition-opacity">
+          <button
+           className="w-full px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:opacity-90 transition-opacity"
+           onClick={openSupportModal}
+           >
             Зв язатися з підтримкою
           </button>
         </div>
@@ -166,12 +138,13 @@ export default function MyAccount() {
   ];
 
   return (
+
     <div className="flex items-center justify-center min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-3xl font-bold text-black mb-8"
+          className="text-3xl font-bold text-center text-black mb-8"
         >
           Мій акаунт
         </motion.h1>

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { mockDataIntroSection } from "@/mock/mock-intro-section";
+import { mockDataIntroSectionEn } from "@/mock/mock-intro-section-en";
 
 export interface IUseMainPageStore {
   mockMainPageDataIndex: number;
@@ -9,21 +9,21 @@ export interface IUseMainPageStore {
 
 export const useMainPageStore = create<IUseMainPageStore>((set, get) => ({
   mockMainPageDataIndex: 0,
-
+  
+  
   increaseMainPageDataIndex: () => {
     const currentIndex = get().mockMainPageDataIndex;
-    const maxIndex = mockDataIntroSection.length - 1;
+    const maxIndex = mockDataIntroSectionEn.length - 1;
 
     if (currentIndex >= maxIndex) {
       set({ mockMainPageDataIndex: 0 });
     } else 
       set({ mockMainPageDataIndex: currentIndex + 1 });
-
   },
 
   decreaseMainPageDataIndex: () => {
     const currentIndex = get().mockMainPageDataIndex;
-    const maxIndex = mockDataIntroSection.length - 1;
+    const maxIndex = mockDataIntroSectionEn .length - 1;
     
     if (currentIndex > 0) {
       set({ mockMainPageDataIndex: currentIndex - 1 });

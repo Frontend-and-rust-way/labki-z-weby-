@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import { bookDescription } from "./mock/mock-book-description";
+import { booksEn } from "@/mock/mock-books-en";
+import { booksUk } from "@/mock/mock-books-uk";
 import { cn } from "@/lib/utils";
 import { useBasketStore2 } from "../basket/store/store/use-basket-store-2";
+import { useTranslation } from "react-i18next";
 
 export function BookCard() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -13,10 +15,11 @@ export function BookCard() {
     chosenGenre,
     chosenAuthor,
   } = useBasketStore2();
-
+  const {t} = useTranslation();
+  const books = t("mainPage.books",{returnObjects:true}) as typeof booksEn | typeof booksUk;
   const chosenFilter = chosenAuthor || chosenGenre;
 
-  const filteredBooks = mockBooks.filter(book =>
+  const filteredBooks = books.filter(book =>
     chosenFilter ? book.author === chosenFilter || book.genre === chosenFilter : true
   );
 
@@ -43,7 +46,7 @@ export function BookCard() {
               <div className="relative w-16 h-16 rounded-lg overflow-hidden shadow-md">
                 <Image
                   src={book.imageUrl}
-                  alt={book.title}
+                  alt={book.author}
                   fill
                   sizes="64px"
                   className="object-cover transition-transform duration-300 hover:scale-110"
