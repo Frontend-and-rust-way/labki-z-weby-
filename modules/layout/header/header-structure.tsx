@@ -18,13 +18,12 @@ import {
 
 export function HeaderStruct() {
   const {t}= useTranslation();
-
   const isBurgerIconExists = useMediaQuery({ maxWidth: 640 });
   const url = usePathname();
   const mockArray = useBasketStore2((state) => state.mockBooks);
   const setChosenGenreValue = useBasketStore2((state) => state.setChosenGenreValue)  
   const setChosenAuthorValue = useBasketStore2((state) => state.setChosenAuthorValue);
-  const books = t("mainPage.books",{returnObjects:true}) as typeof  booksUk |  typeof booksEn;
+  const books = t("mainPage.books",{returnObjects: true}) as typeof booksUk | typeof booksEn;
   
   return (
     <HeaderStructure>

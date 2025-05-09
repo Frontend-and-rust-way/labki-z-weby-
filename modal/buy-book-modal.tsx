@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { Button } from "@/ui/button";
 import { useBasketStore2 } from "@/modules/layout/catalog-page/basket/store/store/use-basket-store-2";
+import { useTranslation } from "react-i18next";
 
 export function BuyBookModal() {
   const orderModal = useBasketStore2((state) => state.orderModal);
@@ -11,7 +12,9 @@ export function BuyBookModal() {
   const addOrderIntoArray = useBasketStore2((state) => state.addOrderIntoArray);
   const orderings = useBasketStore2((state) => state.ordering);
   const getOrderingFromLocalStorage = useBasketStore2(state=>state.getOrderingFromLocalStorage);
+  const {t} = useTranslation();
   
+
   useEffect(() => { 
     getOrderingFromLocalStorage();
   },[getOrderingFromLocalStorage]);
@@ -28,7 +31,7 @@ export function BuyBookModal() {
         >
           <X size={22}  />
         </button>
-        <h2 className="text-2xl font-semibold text-gray-800 tracking-wide">Total Summary</h2>
+        <h2 className="text-2xl font-semibold text-gray-800 tracking-wide">{t("mainPage.totalSummary")}</h2>
         <span className="text-[24px] font-bold text-blue-700">
           ${totalSummary.toFixed(2)}
         </span>
@@ -41,7 +44,7 @@ export function BuyBookModal() {
           }}
           className="w-full h-12 text-lg bg-blue-600 hover:bg-blue-700 text-white font-medium tracking-wide rounded-xl transition duration-300"
         >
-          Order books
+          {t("mainPage.orderBooks")}
         </Button>
       </div>
     </div>,

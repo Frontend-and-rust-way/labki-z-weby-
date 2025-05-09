@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useEffect } from "react";
 import emailjs from 'emailjs-com';
 import useAccountStore from "./store/use-account-store";
+import { useTranslation } from "react-i18next";
 
 import {
   FiUser,
@@ -22,16 +23,15 @@ interface Section {
   content: React.ReactNode;
 }
 
-
 export default function MyAccount() {
   const openSupportModal = useAccountStore(state => state.openSupportModal);
-
   console.log(emailjs);
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const orderingData = useBasketStore2(state => state.ordering);
   const getOrderingFromLocalStorage = useBasketStore2(state => state.getOrderingFromLocalStorage);
+  const {t} = useTranslation();
 
-
+// !! Іван Іванов
   useEffect(() => {
     getOrderingFromLocalStorage();
   },[getOrderingFromLocalStorage]) 
@@ -55,17 +55,17 @@ export default function MyAccount() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="p-4 bg-gray-50 rounded-lg">
-              <p className="text-sm text-black">Телефон</p>
+              <p className="text-sm text-black">{t("accountPage.phone")}</p>
               <p className="font-medium">+380991234567</p>
             </div>
             <div className="p-4 bg-gray-50 rounded-lg">
-              <p className="text-sm text-black">Адреса</p>
-              <p className="font-medium">м. Київ, вул. Прикладна, 1</p>
+              <p className="text-sm text-black">{t("accountPage.address")}</p>
+              <p className="font-medium">{t("accoutPage.addressCity")}</p>
             </div>
           </div>
           <button className="w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center space-x-2">
             <FiEdit2 />
-            <span>Редагувати</span>
+            <span>{t("accountPage.edit")}</span>
           </button>
         </div>
       ),
@@ -79,11 +79,10 @@ export default function MyAccount() {
           <table className="w-full">
             <thead>
               <tr className="border-b">
-                <th className="py-3 px-4 text-left text-black">№</th>
-                <th className="py-3 px-4 text-left text-black">Дата</th>
-                <th className="py-3 px-4 text-left text-black">Статус</th>
-                <th className="py-3 px-4 text-left text-black">Сума</th>
-                <th className="py-3 px-4 text-left text-black"></th>
+                <th className="py-3 px-4 text-left text-black">{t("acccountPage.orderNumber")}</th>
+                <th className="py-3 px-4 text-left text-black">{t("acccountPage.date")}</th>
+                <th className="py-3 px-4 text-left text-black">{t("acccountPage.status")}</th>
+                <th className="py-3 px-4 text-left text-black">{t("acccountPage.total")}</th>
               </tr>
             </thead>
             <tbody>
@@ -93,7 +92,7 @@ export default function MyAccount() {
                 <td className="py-3 px-4">2025-05-01</td>
                 <td className="py-3 px-4">
                   <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
-                    Доставлено
+                    {t("accountPage.delivered")}
                   </span>
                 </td>
                 <td className="py-3 px-4 font-medium">{ordering}</td>
@@ -111,10 +110,10 @@ export default function MyAccount() {
       content: (
         <div className="space-y-4">
           <div className="p-4 bg-gray-50 rounded-lg">
-            <label className="block text-sm text-black mb-2">Мова</label>
+            <label className="block text-sm text-black mb-2">{t("accountPage.language")}</label>
             <select className="w-full p-2 border rounded-lg bg-white">
-              <option>Українська</option>
-              <option>English</option>
+              <option>{t("accountPage.ukranian")}</option>
+              <option>{t("accountPage.english")}</option>
             </select>
           </div>
         </div>
@@ -130,7 +129,7 @@ export default function MyAccount() {
            className="w-full px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:opacity-90 transition-opacity"
            onClick={openSupportModal}
            >
-            Зв язатися з підтримкою
+          {t("accountPage.contactSupport")}
           </button>
         </div>
       ),
@@ -146,7 +145,7 @@ export default function MyAccount() {
           animate={{ opacity: 1, y: 0 }}
           className="text-3xl font-bold text-center text-black mb-8"
         >
-          Мій акаунт
+          {t("accountPage.myAccount")}
         </motion.h1>
 
         <div className="grid gap-6">

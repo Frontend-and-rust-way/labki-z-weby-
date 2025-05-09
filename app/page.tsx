@@ -22,6 +22,7 @@ export default function Home() {
   const { t } = useTranslation();
   const books = t("mainPage.dataIntroSection", { returnObjects: true }) as typeof mockDataIntroSectionEn | typeof mockDataIntroSectionUk;
 
+
   return (
     <>
       <HeaderStruct />
@@ -31,9 +32,7 @@ export default function Home() {
       </div>
 
       <IntroSection className="py-[20px]">
-        {books
-          .filter((_, i) => i === mockIndex)
-          .map((section) => (
+        {books.filter((_, i) => i === mockIndex).map((section) => (
             <Fragment key={section.link}>
               <Heading className="text-white text-[40px]">
                 {section.heading}

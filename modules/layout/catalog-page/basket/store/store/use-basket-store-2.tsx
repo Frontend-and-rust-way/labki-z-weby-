@@ -4,6 +4,8 @@ import { booksUk } from "@/mock/mock-books-uk";
 import { immer } from "zustand/middleware/immer";
 import _ from "lodash";
 
+
+
 export interface IUseBasketStore {
   ordering: (number | string)[];
   orderModal: boolean;
@@ -36,7 +38,7 @@ export const useBasketStore2 = create<IUseBasketStore>()(
     isBasketModalActive: false,
     chosenAuthor: "",
     chosenGenre: "",
-    mockBooks: _.shuffle(booksEn),
+    mockBooks:  _.shuffle(booksEn),
     addedBooks: [],
     totalSummary: 0,
 

@@ -4,11 +4,13 @@ import { booksEn } from "./mock/mock-books-en";
 import { booksUk } from "./mock/mock-books-uk";
 import { mockDataIntroSectionEn } from "./mock/mock-intro-section-en";
 import { mockDataIntroSectionUk } from "./mock/mock-into-section-uk";
-import { bookDescriptionEn, bookDescriptionUk } from "./modules/layout/catalog-page/grid-book-cards/mock/mock-book-description";
+import { bookDescriptionUk } from "./modules/layout/catalog-page/grid-book-cards/mock/mock-book-description";
+import { footerInfoEn, footerInfoUkr, blogPostsEn, blogPostsUkr, popularTagsEn, popularTagsUkr } from "./modules/layout/footer/footer";
+import { bookDescriptionEn } from "./modules/layout/catalog-page/grid-book-cards/mock/mock-book-description";
 
 i18n.use(initReactI18next).init({
   resources: {
-    ua: {
+    uk: {
       translation: {
         mainPage: {
           headingsData: ["BookVerse", "Каталог", "Картки"],
@@ -29,8 +31,11 @@ i18n.use(initReactI18next).init({
           addToBasket: "додати до кошика",  
           dataIntroSection: mockDataIntroSectionUk,
           bookDescription: bookDescriptionUk,
+
         },
         footer: {
+          footerInfo: footerInfoUkr,
+          blogPosts: blogPostsUkr,
           aboutStore: "Про магазин",
           storeDescription:
             "BookVerse — це інтернет-магазин книг, де ви можете знайти художню, наукову, бізнес-літературу та багато іншого. Наша місія — зробити читання зручним і доступним.",
@@ -39,11 +44,8 @@ i18n.use(initReactI18next).init({
           howToReadMoreSubtitle: "Поради для зайнятих людей",
           newReleases: "Нові релізи місяця",
           newReleasesSubtitle: "Нові надходження в нашому каталозі",
-          popularTags: [
-            "Фентезі", "Бізнес", "Наука", "Психологія", "Класика",
-            "Нові релізи", "Художня література", "Історія", "Детективи",
-            "Мотивація", "Саморозвиток", "Комікси"
-          ]
+          popularTags: popularTagsUkr,
+          popular:"Популярні теги",
         },
         accountPage: {
           myAccount: "Мій акаунт",
@@ -60,21 +62,23 @@ i18n.use(initReactI18next).init({
           total: "Сума",
           delivered: "Доставлено",
           language: "Мова",
-          ukrainian: "Українська",
-          english: "English",
+          ukrainian: "українська",
+          english: "англійська",
           contactSupport: "Зв'язатися з підтримкою",
-          contactSupportModal: "Please enter a message",
-          supportMessagePlaceholder: "Please enter your support message",
-          supportMessageAlert: "Your support message has been sent!",
-          sendMessage: "Send Message",  
-          bookDescription: bookDescriptionEn,
+          contactSupportModal: "Будь ласка, введіть повідомлення",
+          supportMessagePlaceholder: "Будь ласка, введіть ваше повідомлення для підтримки",
+          supportMessageAlert: "Ваше повідомлення підтримки надіслано!",
+          sendMessage: "Надіслати повідомлення",
+          bookDescription: bookDescriptionUk,
+          addressCity: "м. Київ, вул. Прикладна, 1",
+          enterMessage: "будь ласка введіть  повідомлення",
         },
-        catalog:{
-          close: "Close modal",
-          totalSummary: "загальна сума",
-          orderBooks: "зомовити книги",
+        catalog: {
+          close: "Закрити модальне вікно",
+          totalSummary: "Загальна сума",
+          orderBooks: "Замовити книги",
           addToBasket: "додати до кошика",
-          "delete": "видалити все"
+          delete: "Видалити все"
         }
       }
     },
@@ -96,9 +100,12 @@ i18n.use(initReactI18next).init({
           closeModal: "Close modal",
           totalSummary: "Total Summary",
           orderBooks: "Order books",
-          dataIntroSection:mockDataIntroSectionEn,
+          dataIntroSection: mockDataIntroSectionEn,
+          bookDescription: bookDescriptionEn,
         },
         footer: {
+          footerInfo: footerInfoEn,
+          blogPosts: blogPostsEn,
           aboutStore: "About the Store",
           storeDescription:
             "BookVerse is an online bookstore where you can find fiction, scientific, business literature, and more. Our mission is to make reading convenient and accessible.",
@@ -107,13 +114,10 @@ i18n.use(initReactI18next).init({
           howToReadMoreSubtitle: "Tips for busy people",
           newReleases: "New Releases of the Month",
           newReleasesSubtitle: "Fresh arrivals in our catalog",
-          popularTags: [
-            "Fantasy", "Business", "Science", "Psychology", "Classics",
-            "New Releases", "Fiction", "History", "Detective", "Motivation",
-            "Self-help", "Comics"
-          ]
+          popularTags: popularTagsEn,
+          popular:"Popular Tags",
         },
-        accountPage: {
+        accountPage: {        
           myAccount: "My Account",
           personalData: "Personal Data",
           orderHistory: "Order History",
@@ -131,22 +135,25 @@ i18n.use(initReactI18next).init({
           ukrainian: "Ukrainian",
           english: "English",
           contactSupport: "Contact Support",
-          contactSupportModal: "Будь ласка, введіть повідомлення",
-          supportMessagePlaceholder: "Будь ласка, введіть ваше повідомлення для підтримки",
-          supportMessageAlert: "Ваше повідомлення підтримки надіслано!",
-          sendMessage: "Надіслати повідомлення",
+          contactSupportModal: "Please enter a message",
+          supportMessagePlaceholder: "Please enter your support message",
+          supportMessageAlert: "Your support message has been sent!",
+          sendMessage: "Send Message",
+          addressCity: "Kyiv, Example Street, 1",
+          bookDescription: bookDescriptionEn,
+          enterMessage: "please enter a message",
         },
         catalog: { 
-          "title": "Загальна сума",
-          "orderButton": "Замовити книги",
-          "closeModalAria": "Закрити модальне вікно",
-          "delete": "Delete everything"
+          title: "Total Amount",
+          orderButton: "Order Books",
+          closeModalAria: "Close modal window",
+          delete: "Delete everything"
         }
       }
     }
   },
-  lng: "ua", 
-  fallbackLng: "ua", 
+  lng: "uk", 
+  fallbackLng: "uk", 
   interpolation: {
     escapeValue: false 
   }

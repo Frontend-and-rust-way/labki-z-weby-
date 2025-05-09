@@ -1,10 +1,30 @@
 import Image from "next/image";
-export const footerInfo = {
+import { useTranslation } from "react-i18next";
+
+export const footerInfoUkr = {
+  title: "Про магазин",
+  text: `BookVerse — це інтернет-книгарня, де ви знайдете художню, наукову, бізнес-літературу та багато іншого. Наша місія — зробити читання зручним і доступним.`,
+};
+
+export const footerInfoEn = {
   title: "About the Store",
   text: `BookVerse is an online bookstore where you can find fiction, scientific, business literature, and more. Our mission is to make reading convenient and accessible.`,
 };
 
-export const blogPosts = [
+export const blogPostsUkr = [
+  {
+    imgSrc: "/images/blog/reading-habits.jpg",
+    title: "Як читати більше",
+    subtitle: "Поради для зайнятих людей",
+  },
+  {
+    imgSrc: "/images/blog/new-releases.jpg",
+    title: "Новинки місяця",
+    subtitle: "Свіжі надходження в нашому каталозі",
+  },
+];
+
+export const blogPostsEn = [
   {
     imgSrc: "/images/blog/reading-habits.jpg",
     title: "How to Read More",
@@ -17,11 +37,20 @@ export const blogPosts = [
   },
 ];
 
-export const popularTags = [
+export const popularTagsUkr = [
+  "Фентезі", "Бізнес", "Наука", "Психологія", "Класика", "Новинки", "Художнє", "Історія", "Детектив", "Мотивація", "Самодопомога", "Комікси"
+];
+
+export const popularTagsEn = [
   "Fantasy", "Business", "Science", "Psychology", "Classics", "New Releases", "Fiction", "History", "Detective", "Motivation", "Self-help", "Comics"
 ];
 
 export function Footer() {
+  const {t} = useTranslation();
+  const footerInfo = t("footer.footerInfo",{returnObjects:true}) as typeof  footerInfoUkr || typeof footerInfoEn;
+  const blogPosts = t("footer.blogPosts",{returnObjects:true}) as typeof blogPostsEn || typeof blogPostsUkr;
+  const popularTags = t("footer.popularTags",{returnObjects:true}) as typeof popularTagsUkr || typeof popularTagsEn;
+  
   return (
     <footer className="bg-gray-800 text-white px-6 py-10">
       <div className="flex flex-col md:flex-row md:space-x-8">
@@ -31,9 +60,8 @@ export function Footer() {
           <p className="text-sm">{footerInfo.text}</p>
         </div>
 
-
         <div className="flex-1 mb-8 md:mb-0">
-          <h3 className="text-lg font-semibold mb-4">Blog</h3>
+          <h3 className="text-lg font-semibold mb-4">{t("footer.blog")}</h3>
           <ul>
             {blogPosts.map((post, index) => (
               <li
@@ -58,7 +86,7 @@ export function Footer() {
 
 
         <div className="flex-1">
-          <h3 className="text-lg font-semibold mb-4">Popular Tags</h3>
+          <h3 className="text-lg font-semibold mb-4">{t("footer.popular")}</h3>
           <div className="flex flex-wrap gap-2">
             {popularTags.map((tag, index) => (
               <span
@@ -74,3 +102,4 @@ export function Footer() {
     </footer>
   );
 }
+
