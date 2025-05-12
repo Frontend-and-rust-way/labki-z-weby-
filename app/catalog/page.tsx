@@ -6,7 +6,6 @@ import { BookCard } from "@/modules/layout/catalog-page/grid-book-cards/book-car
 import { BasketModal } from "@/modules/layout/catalog-page/basket/components/all-busket-modal"
 import { BuyBookModal } from "@/modal/buy-book-modal"
 export default function Catalog() {
-
   return ( 
     <>
       <BuyBookModal/>

@@ -6,6 +6,8 @@ import { TotalSummaryBlock } from "./total-summary-basket-block";
 import { BasketPurchases } from "./basket-purchases";
 import { useEffect } from "react";
 
+
+
 export function BasketModal() {
 const closeBasketModal = useBasketStore2(state => state.closeBasketModal);
 // const openBasketModal = useBasketStore2(state => state.openBasketModal);
@@ -57,7 +59,7 @@ const reduceAllBooksCount = addedBooks.reduce((acc,book)=> +acc + +book.countPur
           />
         ))}
       </div>
-      <TotalSummaryBlock />
+      <TotalSummaryBlock  />
     </div>,
     document.body
   );

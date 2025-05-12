@@ -4,11 +4,11 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useBasketStore2 } from "../basket/store/store/use-basket-store-2";
 import { useTranslation } from "react-i18next";
-import { bookDescriptionEn } from "./mock/mock-book-description";
+
 import { bookDescriptionUk } from "./mock/mock-book-description";
+import { getCollectionData } from "@/firebase/firebase-function";
 
 export function BookCard() {
-  type TypeBookDescription = typeof bookDescriptionEn | typeof bookDescriptionUk;
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const {
     mockBooks,
@@ -17,12 +17,9 @@ export function BookCard() {
     chosenAuthor,
   } = useBasketStore2();
 
-  const {t} = useTranslation();  
-
-  const bookDescription = t("mainPage.bookDescription", {
-    returnObjects: true,
-  }) as TypeBookDescription;
-
+  const {i18n} = useTranslation();  
+  const bookDescription = i18n.language === "uk" ? bookDescriptionUk  :  getCollectionData("books");  
+  
   const chosenFilter = chosenAuthor || chosenGenre;
   const filteredBooks = mockBooks.filter((book) =>
     chosenFilter
@@ -88,7 +85,7 @@ export function BookCard() {
                   : "bg-gradient-to-r from-emerald-500 to-green-600"
               )}
             >
-              {t("mainPage.addToBasket", "Додати до кошика")}
+                add to busket
             </button>
           </div>
         ))}

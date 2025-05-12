@@ -1,5 +1,5 @@
 "use client";
-import { HeaderStructure } from "./header";
+import { HeaderStructure } from "./components/header";
 import { useTranslation } from "react-i18next";
 import { useMediaQuery } from "react-responsive";
 import { Burger } from "./components/burger-icon";
@@ -8,7 +8,7 @@ import { HeaderModal } from "@/modal/header-modal-burger-icon";
 import { usePathname } from "next/navigation";
 import { useBasketStore2 } from "../catalog-page/basket/store/store/use-basket-store-2";
 import { booksEn } from "@/mock/mock-books-en";
-import { booksUk } from "@/mock/mock-books-uk";
+
 
 import {
   Popover,
@@ -17,20 +17,20 @@ import {
 } from "@/ui/popover";
 
 export function HeaderStruct() {
-  const {t}= useTranslation();
+  const {i18n}= useTranslation("resources");
   const isBurgerIconExists = useMediaQuery({ maxWidth: 640 });
   const url = usePathname();
   const mockArray = useBasketStore2((state) => state.mockBooks);
   const setChosenGenreValue = useBasketStore2((state) => state.setChosenGenreValue)  
   const setChosenAuthorValue = useBasketStore2((state) => state.setChosenAuthorValue);
-  const books = t("mainPage.books",{returnObjects: true}) as typeof booksUk | typeof booksEn;
-  
+  const books = i18n.language === "en" ? booksEn : booksEn ;
+
   return (
     <HeaderStructure>
       {!isBurgerIconExists ? (
         <>
           <HeaderStructure.NavigationLinks items={navItems} />
-
+          
           {url.includes("catalog") && (
             <div className="flex gap-5 items-center justify-center">
 
@@ -60,7 +60,7 @@ export function HeaderStruct() {
                     <div
                       key={`genre-${book.code}`}
                       className="px-3 py-1 hover:bg-gray-100 rounded-md cursor-pointer transition text-gray-800 text-sm"
-                      onClick={() =>  setChosenGenreValue(book.genre)}
+                      onClick={() => setChosenGenreValue(book.genre)}
                     >
                       {book.genre}
                     </div>

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
+import I18nextProviderWrapper from "./providers/I-18-next-provider-wrapper";
+import { SignInModal } from "@/modal/sign-in-modal";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -22,12 +23,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        
+          <I18nextProviderWrapper>
+            {children}
+            <SignInModal/>
+          </I18nextProviderWrapper>
+
       </body>
     </html>
   );

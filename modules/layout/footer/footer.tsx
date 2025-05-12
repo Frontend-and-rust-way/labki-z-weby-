@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
-
 export const footerInfoUkr = {
   title: "Про магазин",
   text: `BookVerse — це інтернет-книгарня, де ви знайдете художню, наукову, бізнес-літературу та багато іншого. Наша місія — зробити читання зручним і доступним.`,
@@ -46,11 +45,11 @@ export const popularTagsEn = [
 ];
 
 export function Footer() {
-  const {t} = useTranslation();
+  const {t,i18n} = useTranslation();
   const footerInfo = t("footer.footerInfo",{returnObjects:true}) as typeof  footerInfoUkr || typeof footerInfoEn;
-  const blogPosts = t("footer.blogPosts",{returnObjects:true}) as typeof blogPostsEn || typeof blogPostsUkr;
-  const popularTags = t("footer.popularTags",{returnObjects:true}) as typeof popularTagsUkr || typeof popularTagsEn;
-  
+  const blogPosts  = i18n.language === "uk" ?  blogPostsUkr  : blogPostsEn;
+  const popularTags = i18n.language === "uk" ? popularTagsUkr : popularTagsEn;
+
   return (
     <footer className="bg-gray-800 text-white px-6 py-10">
       <div className="flex flex-col md:flex-row md:space-x-8">
@@ -61,7 +60,7 @@ export function Footer() {
         </div>
 
         <div className="flex-1 mb-8 md:mb-0">
-          <h3 className="text-lg font-semibold mb-4">{t("footer.blog")}</h3>
+          <h3 className="text-lg font-semibold mb-4">Blog</h3>
           <ul>
             {blogPosts.map((post, index) => (
               <li
@@ -83,7 +82,6 @@ export function Footer() {
             ))}
           </ul>
         </div>
-
 
         <div className="flex-1">
           <h3 className="text-lg font-semibold mb-4">{t("footer.popular")}</h3>

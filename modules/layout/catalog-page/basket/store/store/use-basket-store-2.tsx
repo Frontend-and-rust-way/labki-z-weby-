@@ -14,7 +14,7 @@ export interface IUseBasketStore {
   totalSummary: number;
   isBasketModalActive: boolean;
   mockBooks: typeof booksEn | typeof booksUk;
-  addedBooks: typeof booksEn | typeof booksUk;
+  addedBooks: typeof booksEn | typeof booksUk; // по суті додані книги в стоіор супер прсото ансрпавді
   openOrderModal: () => void;
   closeOrderModal: () => void;
   openBasketModal: () => void;

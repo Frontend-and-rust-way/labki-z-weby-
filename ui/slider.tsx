@@ -6,8 +6,6 @@ const images = [
     "/1_C_De138ur_97HVfp34DGuQ.png",
     "/281023-10-most-read-books-Feature.webp",
     "/old-book-flying-letters-magic-light-background-bookshelf-library-ancient-books-as-symbol-knowledge-history-218640948.webp",
-    "/old_book_look_up_1570x.webp",
-    "/old_book_look_up_1570x.webp"
 ];
 
 export default function AutoSlider() {

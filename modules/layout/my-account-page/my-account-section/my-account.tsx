@@ -1,18 +1,19 @@
 "use client";
+
 import { useBasketStore2 } from "../../catalog-page/basket/store/store/use-basket-store-2";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useEffect } from "react";
-import emailjs from 'emailjs-com';
 import useAccountStore from "./store/use-account-store";
 import { useTranslation } from "react-i18next";
+import AuthStatus from "@/firebase/auth-status";
+import LogoutButton from "@/firebase/logout-form";
+import { getAuth } from "firebase/auth";
+
 
 import {
   FiUser,
   FiShoppingBag,
-  FiSettings,
   FiHelpCircle,
-  FiEdit2,
   FiChevronRight,
 } from "react-icons/fi";
 
@@ -23,19 +24,37 @@ interface Section {
   content: React.ReactNode;
 }
 
-export default function MyAccount() {
-  const openSupportModal = useAccountStore(state => state.openSupportModal);
-  console.log(emailjs);
-  const [activeSection, setActiveSection] = useState<string | null>(null);
-  const orderingData = useBasketStore2(state => state.ordering);
-  const getOrderingFromLocalStorage = useBasketStore2(state => state.getOrderingFromLocalStorage);
-  const {t} = useTranslation();
+async function fetchUserOrders() {
+  const auth = getAuth();
+  const user = auth.currentUser;
+  if (!user) return [];
 
-// !! Іван Іванов
+  try {
+    const res = await fetch(`http://localhost:4000/my-account?userId=${user.uid}`);
+    if (!res.ok) throw new Error("Помилка при запиті до сервера");
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Помилка при отриманні замовлень:", error);
+    return [];
+  }
+}
+
+
+export default function MyAccount() {
+  const openSupportModal = useAccountStore((state) => state.openSupportModal);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [userOrders, setUserOrders] = useState<any[]>([]);
+
+  const getOrderingFromLocalStorage = useBasketStore2((state) => state.getOrderingFromLocalStorage);
+  const { t, i18n } = useTranslation();
+  const dateOrder = useAccountStore((state) => state.dateOrder);
+  
+
   useEffect(() => {
     getOrderingFromLocalStorage();
-  },[getOrderingFromLocalStorage]) 
-
+    fetchUserOrders().then(setUserOrders);
+  }, []);
 
   const sections: Section[] = [
     {
@@ -43,30 +62,9 @@ export default function MyAccount() {
       title: "Особисті дані",
       icon: <FiUser className="w-6 h-6" />,
       content: (
-        <div className="space-y-4">
-          <div className="flex items-center space-x-4">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-2xl font-bold">
-              II
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold">Іван Іванов</h3>
-              <p className="text-gray-black">ivan@example.com</p>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 bg-gray-50 rounded-lg">
-              <p className="text-sm text-black">{t("accountPage.phone")}</p>
-              <p className="font-medium">+380991234567</p>
-            </div>
-            <div className="p-4 bg-gray-50 rounded-lg">
-              <p className="text-sm text-black">{t("accountPage.address")}</p>
-              <p className="font-medium">{t("accoutPage.addressCity")}</p>
-            </div>
-          </div>
-          <button className="w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center space-x-2">
-            <FiEdit2 />
-            <span>{t("accountPage.edit")}</span>
-          </button>
+        <div className="space-y-6">
+          <AuthStatus />
+          <LogoutButton />
         </div>
       ),
     },
@@ -76,46 +74,45 @@ export default function MyAccount() {
       icon: <FiShoppingBag className="w-6 h-6" />,
       content: (
         <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b">
-                <th className="py-3 px-4 text-left text-black">{t("acccountPage.orderNumber")}</th>
-                <th className="py-3 px-4 text-left text-black">{t("acccountPage.date")}</th>
-                <th className="py-3 px-4 text-left text-black">{t("acccountPage.status")}</th>
-                <th className="py-3 px-4 text-left text-black">{t("acccountPage.total")}</th>
+          <table className="w-full text-sm text-left text-gray-700">
+            <thead className="bg-gray-100 text-gray-800">
+              <tr>
+                <th className="px-4 py-2 text-center">Order</th>
+                <th className="px-4 py-2 text-center">Date</th>
+                <th className="px-4 py-2 text-center">Status</th>
+                <th className="px-4 py-2 text-center">Total</th>
               </tr>
             </thead>
             <tbody>
-              {orderingData.map((ordering, index) => ( 
-              <tr key={`${ordering}-${index}`}  className="border-b hover:bg-gray-50 text-black transition-colors">
-                <td className="py-3 px-4">{index + 1}</td>
-                <td className="py-3 px-4">2025-05-01</td>
-                <td className="py-3 px-4">
-                  <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
-                    {t("accountPage.delivered")}
-                  </span>
-                </td>
-                <td className="py-3 px-4 font-medium">{ordering}</td>
-              </tr>
-              ))}
+              {userOrders.length === 0 ? (
+                <tr>
+                  <td colSpan={4} className="text-center py-4 text-gray-500">
+                    no orders
+                  </td>
+                </tr>
+              ) : (
+                userOrders.map((order, index) => (
+                  <tr
+                    key={order.id}
+                    className="border-b hover:bg-gray-50 transition-colors"
+                  >
+                    <td className="px-4 py-3 text-center">{index + 1}</td>
+                    <td className="px-4 py-3 text-blue-800 text-sm text-center">
+                      {order.createdAt?.toDate?.().toLocaleDateString() || "N/A"}
+                    </td>
+                    <td className="px-4 py-3 text-center">
+                      <span className="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs">
+                        delivered
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 font-medium text-center">
+                      ${order.books?.reduce((acc: number, book: any) => acc + (book.price * book.countPurchase || 0), 0).toFixed(2)}
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
-        </div>
-      ),
-    },
-    {
-      id: "settings",
-      title: "Налаштування",
-      icon: <FiSettings className="w-6 h-6" />,
-      content: (
-        <div className="space-y-4">
-          <div className="p-4 bg-gray-50 rounded-lg">
-            <label className="block text-sm text-black mb-2">{t("accountPage.language")}</label>
-            <select className="w-full p-2 border rounded-lg bg-white">
-              <option>{t("accountPage.ukranian")}</option>
-              <option>{t("accountPage.english")}</option>
-            </select>
-          </div>
         </div>
       ),
     },
@@ -126,10 +123,10 @@ export default function MyAccount() {
       content: (
         <div className="space-y-4">
           <button
-           className="w-full px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:opacity-90 transition-opacity"
-           onClick={openSupportModal}
-           >
-          {t("accountPage.contactSupport")}
+            className="w-full px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl hover:opacity-90 transition"
+            onClick={openSupportModal}
+          >
+              contact Support
           </button>
         </div>
       ),
@@ -137,37 +134,38 @@ export default function MyAccount() {
   ];
 
   return (
-
-    <div className="flex items-center justify-center min-h-screen bg-gray-50 py-8">
-      <div className="max-w-4xl mx-auto px-4">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 px-4 py-10">
+      <div className="w-full max-w-5xl">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-3xl font-bold text-center text-black mb-8"
+          className="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-10"
         >
-          {t("accountPage.myAccount")}
+          My account
         </motion.h1>
 
-        <div className="grid gap-6">
+        <div className="space-y-6">
           {sections.map((section) => (
             <motion.section
               key={section.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-xl shadow-sm overflow-hidden"
+              className="bg-white rounded-2xl shadow-md overflow-hidden"
             >
               <button
                 onClick={() =>
                   setActiveSection(activeSection === section.id ? null : section.id)
                 }
-                className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                className="w-full px-6 py-5 flex items-center justify-between hover:bg-gray-50 transition-colors"
               >
-                <div className="flex items-center space-x-4">
-                  <div className="text-blue-500">{section.icon}</div>
-                  <h2 className="text-xl font-semibold text-black">{section.title}</h2>
+                <div className="flex items-center gap-4">
+                  <div className="text-blue-600">{section.icon}</div>
+                  <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
+                    {section.title}
+                  </h2>
                 </div>
                 <FiChevronRight
-                  className={`w-5 h-5 text-black transition-transform ${
+                  className={`w-5 h-5 text-gray-700 transition-transform ${
                     activeSection === section.id ? "rotate-90" : ""
                   }`}
                 />
@@ -178,7 +176,7 @@ export default function MyAccount() {
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  className="px-6 py-4 border-t"
+                  className="px-6 py-5 border-t border-gray-100 bg-gray-50"
                 >
                   {section.content}
                 </motion.div>

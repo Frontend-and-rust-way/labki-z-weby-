@@ -1,7 +1,7 @@
 import { X } from "lucide-react";
 import { createPortal } from "react-dom";
 import { cn } from "@/lib/utils";
-import useToggleStore from "../store/use-toggle-store";
+import { useToggleStore } from "../store/use-toggle-store";
 import { IHeadingListProps } from "../types/interfaces";
 
 export function HeadingList({ className, size = 40 }: IHeadingListProps) {

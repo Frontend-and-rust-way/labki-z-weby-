@@ -1,3 +1,4 @@
+"use client"
 import { HeaderStruct } from "@/modules/layout/header/header-structure"
 import { Footer } from "@/modules/layout/footer/footer"
 import AutoSlider from "@/ui/slider"
@@ -13,5 +14,5 @@ export default function Catalog() {
       <SupportModal/>
       <Footer/>
     </>
-     )
+    )
 }
