@@ -19,14 +19,14 @@ const data = useBasketStore2(state => state.setTotalSummary);
 const reduceAllBooksCount = addedBooks.reduce((acc,book)=> +acc + +book.countPurchase,0);
   useEffect(() => { 
     data();
-  },[addedBooks,data]);
+  },[addedBooks, data]);
 
   if (!isBasketModalActive) return null;
 
   return createPortal(
     <div className="fixed top-0 right-0 h-full w-[90%] sm:w-[500px] bg-white shadow-2xl z-50 flex flex-col">
       <div className="p-5 flex justify-between items-center border-b border-gray-200">
-        <h2 className="text-xl font-bold text-gray-800">Your Basket</h2>
+        <h2 className="text-xl font-bold text-gray-800">Ваш кошик</h2>
         <X
           size={24}
           className="text-gray-500 hover:text-gray-700 cursor-pointer transition-colors"
@@ -35,12 +35,12 @@ const reduceAllBooksCount = addedBooks.reduce((acc,book)=> +acc + +book.countPur
       </div>
 
       <div className="px-5 py-4 flex justify-between items-center border-b border-gray-100">
-        <span className="text-gray-700 font-medium">{(reduceAllBooksCount)} item(s)</span>
+        <span className="text-gray-700 font-medium">{(reduceAllBooksCount)} книг</span>
         <button
           className="text-sm text-red-600 hover:text-red-800 hover:underline transition-colors"
           onClick={clearAddedBooks}
         >
-          Delete everything
+          видалити все
         </button>
       </div>
 

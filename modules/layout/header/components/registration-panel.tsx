@@ -1,51 +1,51 @@
+import { useState, useEffect } from "react";
+import { onAuthStateChanged, User } from "firebase/auth";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { IRegistrationPanelProps } from "../types/interfaces";
 import { aclonica } from "./navigation-links";
 import { Busket } from "@/modules/layout/catalog-page/basket/basket";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-import useAccountStore from "../../my-account-page/my-account-section/store/use-account-store";
-import { RegisterModal } from "@/modal/register-modal";
-import { useState, useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/app/firebase";
-import { SignInModal } from "@/modal/sign-in-modal";
+import useAccountStore from "../../my-account-page/my-account-section/store/use-account-store";
 
-export function RegistrationPanel({ className }: IRegistrationPanelProps) {
-  const openRegistationModal = useAccountStore(state => state.openRegistrationModal);
+export const RegistrationPanel: React.FC<IRegistrationPanelProps> = ({ className }) => {
   const pathname = usePathname();
   const isCatalog = pathname.includes("catalog");
-  const [user, setUser] = useState<any>(null);
+  const openRegistrationModal = useAccountStore(state => state.openRegistrationModal);
   const openEnterModal = useAccountStore(state => state.openEnterModal);
-  
-  const baseClass = isCatalog
-    ? "flex sm:basis-[380px] items-center justify-between gap-5"
-    : "flex justify-end";
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) 
-        setUser(user); 
-      else 
-        setUser(null); 
-    });
+    const unsubscribe = onAuthStateChanged(auth, setUser);
     return () => unsubscribe();
   }, []);
 
-  return (
-    <div className={cn(baseClass, className, aclonica.className)}>
+  const textClass = "cursor-pointer text-center whitespace-nowrap";
 
-      <span onClick={openRegistationModal}>Sign Up</span>
-      <span className="mx-[20px]" onClick={openEnterModal}>Sign in</span>
+  return (
+    <div className={cn(
+      isCatalog ? "flex items-center justify-between gap-[20px] lg:gap-[30px]" : "flex gap-[20px] justify-end",
+      className,
+      aclonica.className
+    )}>
+      <span className={cn("md:text-[15px] lg:text-[17px]", textClass)} onClick={openRegistrationModal}>
+        Sign Up
+      </span>
+      <span className={cn("md:text-[15px] lg:text-[17px]", textClass)} onClick={openEnterModal}>
+        Sign In
+      </span>
 
       {!user ? (
-        <span onClick={openRegistationModal}>Please register to enter or log in </span>
+        <span className={cn("text-[10px] md:text-[15px] lg:text-[20px]", textClass)} onClick={openRegistrationModal}>
+          Unregistered
+        </span>
       ) : (
-        <Link href="/my-account">My account</Link> 
-      )}
-      <RegisterModal />
-      <SignInModal/>
+        <Link href="/my-account" className="whitespace-nowrap">
+          My account
+        </Link>
+      )}  
       {isCatalog && <Busket className="w-full max-w-[200px] max-h-[60px]" />}
     </div>
   );
-}
+};

@@ -1,5 +1,6 @@
-import Image from "next/image";
 import { useTranslation } from "react-i18next";
+import { BookOpenText, Newspaper } from "lucide-react";
+
 export const footerInfoUkr = {
   title: "Про магазин",
   text: `BookVerse — це інтернет-книгарня, де ви знайдете художню, наукову, бізнес-літературу та багато іншого. Наша місія — зробити читання зручним і доступним.`,
@@ -12,12 +13,12 @@ export const footerInfoEn = {
 
 export const blogPostsUkr = [
   {
-    imgSrc: "/images/blog/reading-habits.jpg",
+    icon: <BookOpenText size={20} />,
     title: "Як читати більше",
     subtitle: "Поради для зайнятих людей",
   },
   {
-    imgSrc: "/images/blog/new-releases.jpg",
+    icon: <Newspaper size={20}  />,
     title: "Новинки місяця",
     subtitle: "Свіжі надходження в нашому каталозі",
   },
@@ -25,12 +26,12 @@ export const blogPostsUkr = [
 
 export const blogPostsEn = [
   {
-    imgSrc: "/images/blog/reading-habits.jpg",
+    icon: <BookOpenText size={20} />,
     title: "How to Read More",
     subtitle: "Tips for busy people",
   },
   {
-    imgSrc: "/images/blog/new-releases.jpg",
+    icon: <Newspaper size={20}  />,
     title: "New Releases of the Month",
     subtitle: "Fresh arrivals in our catalog",
   },
@@ -45,10 +46,12 @@ export const popularTagsEn = [
 ];
 
 export function Footer() {
-  const {t,i18n} = useTranslation();
-  const footerInfo = t("footer.footerInfo",{returnObjects:true}) as typeof  footerInfoUkr || typeof footerInfoEn;
-  const blogPosts  = i18n.language === "uk" ?  blogPostsUkr  : blogPostsEn;
-  const popularTags = i18n.language === "uk" ? popularTagsUkr : popularTagsEn;
+  const { i18n } = useTranslation();
+  const isUkr = i18n.language === "uk";
+
+  const footerInfo = isUkr ? footerInfoUkr : footerInfoEn;
+  const blogPosts = isUkr ? blogPostsUkr : blogPostsEn;
+  const popularTags = isUkr ? popularTagsUkr : popularTagsEn;
 
   return (
     <footer className="bg-gray-800 text-white px-6 py-10">
@@ -60,20 +63,14 @@ export function Footer() {
         </div>
 
         <div className="flex-1 mb-8 md:mb-0">
-          <h3 className="text-lg font-semibold mb-4">Blog</h3>
+          <h3 className="text-lg font-semibold mb-4">{isUkr ? "Блог" : "Blog"}</h3>
           <ul>
             {blogPosts.map((post, index) => (
               <li
                 key={index}
                 className="flex items-start space-x-4 mb-4 hover:bg-black hover:bg-opacity-10 p-2 rounded"
               >
-                <Image
-                  src={post.imgSrc}
-                  alt={post.title}
-                  className="w-12 h-12 object-cover"
-                  width={40}
-                  height={40}
-                />
+                {post.icon}
                 <div>
                   <span className="block text-base font-medium">{post.title}</span>
                   <span className="block text-sm">{post.subtitle}</span>
@@ -84,7 +81,7 @@ export function Footer() {
         </div>
 
         <div className="flex-1">
-          <h3 className="text-lg font-semibold mb-4">{t("footer.popular")}</h3>
+          <h3 className="text-lg font-semibold mb-4">{isUkr ? "Популярне" : "Popular"}</h3>
           <div className="flex flex-wrap gap-2">
             {popularTags.map((tag, index) => (
               <span
@@ -96,8 +93,8 @@ export function Footer() {
             ))}
           </div>
         </div>
+
       </div>
     </footer>
   );
 }
-

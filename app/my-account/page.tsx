@@ -5,7 +5,7 @@ import AutoSlider from "@/ui/slider"
 import MyAccount from "@/modules/layout/my-account-page/my-account-section/my-account"
 import { SupportModal } from "@/modal/support-modal"
 
-export default function Catalog() {
+export default function MyAccounts() {
   return ( 
     <>
       <HeaderStruct/> 

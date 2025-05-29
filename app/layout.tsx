@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import I18nextProviderWrapper from "./providers/I-18-next-provider-wrapper";
 import { SignInModal } from "@/modal/sign-in-modal";
+import { RegisterModal } from "@/modal/register-modal";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,14 +28,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       >
         
           <I18nextProviderWrapper>
             {children}
             <SignInModal/>
+            <RegisterModal />
           </I18nextProviderWrapper>
-
       </body>
     </html>
   );

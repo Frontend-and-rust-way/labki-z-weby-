@@ -55,13 +55,13 @@ export function SupportModal() {
         </button>
 
         <h1 className="text-2xl font-semibold text-center text-gray-800">
-            enter Message
+                      введіть повідомлення 
         </h1>
 
         <textarea
           name="message"
           className="resize-none w-full h-40 p-4 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          placeholder="enterMessage"
+          placeholder="введіть будь ласка повідомлення"
           required
         />
 
@@ -69,7 +69,7 @@ export function SupportModal() {
           type="submit"
           className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition-colors"
         >
-            send Message
+            надіслати повідомлення
         </button>
       </form>
     </div>,

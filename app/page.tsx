@@ -11,17 +11,13 @@ import { mockDataIntroSectionUk } from "@/mock/mock-into-section-uk";
 import { useMainPageStore } from "@/store/main-page-store";
 import { Fragment } from "react";
 import { BuyBookModal } from "@/modal/buy-book-modal";
-// import { addBooks } from "@/firebase/add-docs";
-// import { booksEn } from "@/mock/mock-books-en";
+import { RegisterModal } from "@/modal/register-modal";
+import { SignInModal } from "@/modal/sign-in-modal";
 import { getCollectionData } from "@/firebase/firebase-function";
-// import { getCollectionData } from "@/firebase/firebase-function";
 
 export default function Home() {
   const mockIndex = useMainPageStore((state) => state.mockMainPageDataIndex);
   const { i18n } = useTranslation("resources");
-  // const books = i18n.language === "uk" ?getCollectionData("booksUk"):  getCollectionData("books");
-  // const books = i18n.language === "uk" ?getCollectionData("booksUk"):  getCollectionData("books");
-
   const books = i18n.language === "uk" ? mockDataIntroSectionUk : mockDataIntroSectionEn;
   return (
     <>
@@ -32,11 +28,10 @@ export default function Home() {
       }}>
         <AutoSlider />
       </div>
-
       <IntroSection className="py-[20px]">
         {books.filter((_, i) => i === mockIndex).map((section) => (
             <Fragment key={section.link}>
-              <Heading className="text-white text-[40px]">
+              <Heading className="text-white  text-[25px] md:text-[30px] lg:text-[40px]">
                 {section.heading}
               </Heading>
               <Description className="w-[50%] text-center">
@@ -46,6 +41,8 @@ export default function Home() {
           ))}
       </IntroSection>
       <Footer />
+      <RegisterModal />
+      <SignInModal/>
     </>
   );
 }

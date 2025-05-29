@@ -4,11 +4,11 @@ import { useBasketStore2 } from "../../catalog-page/basket/store/store/use-baske
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import useAccountStore from "./store/use-account-store";
-import { useTranslation } from "react-i18next";
 import AuthStatus from "@/firebase/auth-status";
 import LogoutButton from "@/firebase/logout-form";
 import { getAuth } from "firebase/auth";
-
+import { getDoc, doc } from "firebase/firestore";
+import { db } from "@/app/firebase";
 
 import {
   FiUser,
@@ -40,20 +40,33 @@ async function fetchUserOrders() {
   }
 }
 
-
 export default function MyAccount() {
   const openSupportModal = useAccountStore((state) => state.openSupportModal);
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [userOrders, setUserOrders] = useState<any[]>([]);
-
+  const [userData, setUserData] = useState<{ name?: string; phone?: string; email?: string } | null>(null);
   const getOrderingFromLocalStorage = useBasketStore2((state) => state.getOrderingFromLocalStorage);
-  const { t, i18n } = useTranslation();
-  const dateOrder = useAccountStore((state) => state.dateOrder);
-  
 
   useEffect(() => {
     getOrderingFromLocalStorage();
     fetchUserOrders().then(setUserOrders);
+
+    const fetchUserData = async () => {
+      const auth = getAuth();
+      const user = auth.currentUser;
+      if (!user) return;
+
+      try {
+        const docSnap = await getDoc(doc(db, "users", user.uid));
+        if (docSnap.exists()) {
+          setUserData(docSnap.data());
+        }
+      } catch (err) {
+        console.error("Помилка отримання даних користувача:", err);
+      }
+    };
+
+    fetchUserData();
   }, []);
 
   const sections: Section[] = [
@@ -62,8 +75,15 @@ export default function MyAccount() {
       title: "Особисті дані",
       icon: <FiUser className="w-6 h-6" />,
       content: (
-        <div className="space-y-6">
+        <div className="space-y-4">
           <AuthStatus />
+          {userData && (
+            <div className="text-gray-800 space-y-2 text-sm">
+              <p><span className="font-semibold">Ім’я:</span> {userData.name || "absent"}</p>
+              <p><span className="font-semibold">Телефон:</span> {userData.phone || "absent"}</p>
+              <p><span className="font-semibold">Email:</span> {userData.email || "absent"}</p>
+            </div>
+          )}
           <LogoutButton />
         </div>
       ),
@@ -126,7 +146,7 @@ export default function MyAccount() {
             className="w-full px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl hover:opacity-90 transition"
             onClick={openSupportModal}
           >
-              contact Support
+            contact Support
           </button>
         </div>
       ),

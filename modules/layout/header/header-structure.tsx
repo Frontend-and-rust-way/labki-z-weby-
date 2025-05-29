@@ -9,7 +9,6 @@ import { usePathname } from "next/navigation";
 import { useBasketStore2 } from "../catalog-page/basket/store/store/use-basket-store-2";
 import { booksEn } from "@/mock/mock-books-en";
 
-
 import {
   Popover,
   PopoverContent,
@@ -18,7 +17,7 @@ import {
 
 export function HeaderStruct() {
   const {i18n}= useTranslation("resources");
-  const isBurgerIconExists = useMediaQuery({ maxWidth: 640 });
+  const isBurgerIconExists = useMediaQuery({ maxWidth: 1100 });
   const url = usePathname();
   const mockArray = useBasketStore2((state) => state.mockBooks);
   const setChosenGenreValue = useBasketStore2((state) => state.setChosenGenreValue)  
@@ -30,10 +29,8 @@ export function HeaderStruct() {
       {!isBurgerIconExists ? (
         <>
           <HeaderStructure.NavigationLinks items={navItems} />
-          
           {url.includes("catalog") && (
             <div className="flex gap-5 items-center justify-center">
-
                <Popover>
                 <PopoverTrigger className="text-center px-4 py-2 text-sm font-medium bg-gray-100 rounded-lg hover:bg-gray-200 transition">
                   Author
@@ -69,7 +66,6 @@ export function HeaderStruct() {
               </Popover>
             </div>
           )}
-
           <HeaderStructure.RegistrationPanel />
         </>
       ) : (

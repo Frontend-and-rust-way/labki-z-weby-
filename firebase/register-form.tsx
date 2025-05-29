@@ -21,8 +21,8 @@ const RegisterForm: React.FC = () => {
 
   return (
     <form onSubmit={handleRegister}>
-      <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" placeholder="Пароль" onChange={(e) => setPassword(e.target.value)} />
+      <input type="email" placeholder="пошта" onChange={(e) => setEmail(e.target.value)} />
+      <input type="password" placeholder="пароль" onChange={(e) => setPassword(e.target.value)} />
       <button type="submit">Зареєструватися</button>
       {error && <p>{error}</p>}
     </form>

@@ -20,7 +20,7 @@ const AuthStatus: React.FC = () => {
             <span className="text-blue-600 font-bold">{user.email}</span>
           </p>
         ) : (
-          <p>помилка входу в акаунт</p>
+          <p>Корстувач не увійшов в акаунт або не зареєструвався</p>  
         )}
       </div>
     </div>

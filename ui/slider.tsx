@@ -25,7 +25,7 @@ export default function AutoSlider() {
           key={images[index]}
           src={images[index]}
           alt="Slide"
-          className="absolute  z-[-1] top-0 left-0  w-full h-full object-cover"
+          className="absolute  z-[-1] top-0 left-0  w-full  h-full"
           initial={{ x: "100%" }}
           animate={{ x: "0%" }}
           exit={{ x: "-100%" }}

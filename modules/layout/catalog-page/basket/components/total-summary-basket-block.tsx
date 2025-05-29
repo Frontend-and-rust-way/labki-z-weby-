@@ -7,7 +7,7 @@ export function TotalSummaryBlock() {
   return (
     <div className="flex flex-col gap-4 p-6 bg-gray-50 rounded-xl shadow-sm">
       <div className="flex justify-between items-center">
-        <span className="text-lg font-medium text-gray-700">Total:</span>
+        <span className="text-lg font-medium text-gray-700">Загальна сума:</span>
         <span className="text-xl font-bold text-gray-900">{totalSummary}$</span>
       </div>
       <button 

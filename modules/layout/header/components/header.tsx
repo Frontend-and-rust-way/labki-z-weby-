@@ -7,7 +7,7 @@ import { RegistrationPanel } from "./registration-panel";
 import { useMediaQuery } from "react-responsive";
 
 export function Header({ className, children }: IHeaderProps) {
-  const isMobile = useMediaQuery({ maxWidth: 640 });
+  const isMobile = useMediaQuery({ maxWidth: 1100 });
 
   return (
     <header
